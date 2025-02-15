@@ -23,6 +23,7 @@ def download_audio():
         cmd = [
             'yt-dlp',
             '--audio-format', 'mp3',
+            '--cookies', 'cookies.txt',
             '-x',
             '-o', output_file,
             url

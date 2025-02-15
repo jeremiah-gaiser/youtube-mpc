@@ -3,13 +3,52 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>String Reverser</title>
+    <title>Mini Audio Sampler</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        text-align: center;
+      }
+      #grid {
+        display: grid;
+        grid-template-columns: repeat(5, 80px);
+        grid-gap: 10px;
+        justify-content: center;
+        margin-top: 20px;
+      }
+      .cell {
+        border: 1px solid #ccc;
+        padding: 20px;
+        font-size: 1.5rem;
+        cursor: pointer;
+        user-select: none;
+      }
+    </style>
   </head>
   <body>
-    <audio id="audioPlayer" controls></audio>
-    <input type="text" id="userInput" placeholder="Enter text to reverse" />
-    <button id="reverseBtn">Reverse</button>
-    <p id="result"></p>
+    <div>
+      <input type="text" id="trackUrl" placeholder="Enter YouTube URL" size="50" />
+      <button id="loadTrack">Load Track</button>
+      <button id="randomizeSlices">Randomize Slices</button>
+      <p id="status"></p>
+    </div>
+    <div id="grid">
+      <div class="cell" data-key="Q">Q</div>
+      <div class="cell" data-key="W">W</div>
+      <div class="cell" data-key="E">E</div>
+      <div class="cell" data-key="R">R</div>
+      <div class="cell" data-key="T">T</div>
+      <div class="cell" data-key="A">A</div>
+      <div class="cell" data-key="S">S</div>
+      <div class="cell" data-key="D">D</div>
+      <div class="cell" data-key="F">F</div>
+      <div class="cell" data-key="G">G</div>
+      <div class="cell" data-key="Z">Z</div>
+      <div class="cell" data-key="X">X</div>
+      <div class="cell" data-key="C">C</div>
+      <div class="cell" data-key="V">V</div>
+      <div class="cell" data-key="B">B</div>
+    </div>
     <script type="module" src="src/main.js"></script>
   </body>
 </html>

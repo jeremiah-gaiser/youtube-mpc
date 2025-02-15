@@ -2,11 +2,13 @@ import io
 import os
 import subprocess
 import tempfile
-from flask import Flask, request, jsonify, send_file
+from flask import Flask, request, jsonify, send_file, send_from_directory
 from flask_cors import CORS
 
-app = Flask(__name__)
-CORS(app)
+# Set the static folder path to your built frontend (adjust as needed)
+static_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'frontend', 'dist')
+app = Flask(__name__, static_folder=static_folder, static_url_path='')
+CORS(app)  # You may remove this if not needed in production
 
 @app.route('/api/download', methods=['POST'])
 def download_audio():
@@ -50,5 +52,15 @@ def download_audio():
         download_name='downloaded.mp3'
     )
 
+# Serve static files for the frontend
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def serve_frontend(path):
+    # If a file matching the path exists, serve it; otherwise serve index.html
+    if path != "" and os.path.exists(os.path.join(app.static_folder, path)):
+        return send_from_directory(app.static_folder, path)
+    return send_from_directory(app.static_folder, 'index.html')
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    # In production, use a production WSGI server (like Gunicorn) instead of app.run()
+    app.run(debug=False, host='0.0.0.0')
